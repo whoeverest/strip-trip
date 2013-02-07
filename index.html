@@ -6,6 +6,9 @@
 <style>
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2 {
     color: #333
 }
 
@@ -34,7 +37,7 @@ a, a:visited {
 
 #controls {
     width: 100%;
-    padding-top: 10px;
+    padding-top: 20px;
 }
 </style>
 
@@ -117,13 +120,22 @@ $(function() {
     var baseUrl = 'index.html'; 
     var nextId = db.get(parseInt(entry.id) + 1)['id'];
     if (nextId) {
-        templateData.nextUrl = baseUrl + '?id=' + nextId;
+        var nextUrl = baseUrl + '?id=' + nextId;
+        templateData.nextUrl = nextUrl;
     }
     var prevId = db.get(parseInt(entry.id) - 1)['id'];
     if (prevId) {
-        templateData.prevUrl = baseUrl + '?id=' + prevId;
+        var prevUrl = baseUrl + '?id=' + prevId;
+        templateData.prevUrl = prevUrl;
         $('head').append('<link rel="prerender" href="' + templateData.prevUrl + '">')
     }
+
+    $(document).keydown(function(event) {
+        switch (event.keyCode) {
+            case 37: if (nextUrl) window.location = nextUrl; break;
+            case 39: if (prevUrl) window.location = prevUrl; break;
+        }
+    });
     
     var html_from_template = tmpl('template', {data: templateData});
     $('#main').html(html_from_template);
@@ -132,7 +144,7 @@ $(function() {
 
 <script type="text/html" id="template">
     <h1>(С)трип</h1>
-    <h2 id="title"><%= data.entry['title'] %></h1>
+    <h2 id="title"><%= data.entry['title'] %></h2>
     <div id="image"><img src="<%= data.entry['image'] %>" /></div>
     <div id="controls">
         <% if (data.nextUrl) { %>
