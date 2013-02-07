@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script>
+// Simple JavaScript Templating
+// John Resig - http://ejohn.org/ - MIT Licensed
+(function(){
+  var cache = {};
+ 
+  this.tmpl = function tmpl(str, data){
+    // Figure out if we're getting a template, or if we need to
+    // load the template - and be sure to cache the result.
+    var fn = !/\W/.test(str) ?
+      cache[str] = cache[str] ||
+        tmpl(document.getElementById(str).innerHTML) :
+     
+      // Generate a reusable function that will serve as a template
+      // generator (and which will be cached).
+      new Function("obj",
+        "var p=[],print=function(){p.push.apply(p,arguments);};" +
+       
+        // Introduce the data as local variables using with(){}
+        "with(obj){p.push('" +
+       
+        // Convert the template into pure JavaScript
+        str
+          .replace(/[\r\t\n]/g, " ")
+          .split("<%").join("\t")
+          .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+          .replace(/\t=(.*?)%>/g, "',$1,'")
+          .split("\t").join("');")
+          .split("%>").join("p.push('")
+          .split("\r").join("\\'")
+      + "');}return p.join('');");
+   
+    // Provide some basic currying to the user
+    return data ? fn( data ) : fn;
+  };
+})();
+
+$.urlParam = function(name){
+    var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+    return results[1] || 0;
+}
+
+var db = [
+    {   
+        "id": "1",
+        "title": "Test 1",
+        "image": "img/img1.png"
+    },
+    {
+        "id": "2",
+        "title": "Test 2",
+        "image": "img/img2.png"
+    },
+    {
+        "id": "3",
+        "title": "Test 3",
+        "image": "img/img3.png"
+    },
+]
+
+$(function() {
+    target = db.filter(function(el) {
+        return el.id == $.urlParam('id');
+    })[0]
+    $('#main').html(tmpl('template', {'entry': target, 'next': 3}));
+})
+</script>
+
+<script type="text/html" id="template">
+    <h1 id="title">Title: <%= entry['title'] %></h1>
+    <div id="image"><img src="<%= entry['image'] %>" /></div>
+</script>
+</head>
+<body>
+    <div id="main"></div>
+</body>
+</html>
