@@ -86,22 +86,23 @@ $.urlParam = function(name){
 var db = {
     data: [
         {
-            "id": "3",
+            "id": 3,
             "title": "Заљубени",
             "image": "img/img1.png"
         },
         {
-            "id": "2",
+            "id": 2,
             "title": "Стари чанти",
             "image": "img/img2.png"
         },
         {
-            "id": "1",
+            "id": 1,
             "title": "Културен натпревар за полен на розите",
             "image": "img/img3.png"
         }
     ],
     get: function(ID) {
+        ID = parseInt(ID);
         var target = this.data.filter(function(el) { return el.id == ID });
         if (target.length > 0) {
             return target[0];
@@ -112,18 +113,24 @@ var db = {
 }
 
 $(function() {
+
+    if (!db.get($.urlParam('id'))) {
+        $('body').append("<h1>СРАЊЕ УРЛ!!!</h1>");
+        throw 'говна во срање урл-то што го внесуваш ебате. Курац.';
+    }
+
     var entry = db.get($.urlParam('id'));
 
     var templateData = {};
     templateData.entry = entry;
 
     var baseUrl = 'index.html'; 
-    var nextId = db.get(parseInt(entry.id) + 1)['id'];
+    var nextId = db.get(entry.id + 1)['id'];
     if (nextId) {
         var nextUrl = baseUrl + '?id=' + nextId;
         templateData.nextUrl = nextUrl;
     }
-    var prevId = db.get(parseInt(entry.id) - 1)['id'];
+    var prevId = db.get(entry.id - 1)['id'];
     if (prevId) {
         var prevUrl = baseUrl + '?id=' + prevId;
         templateData.prevUrl = prevUrl;
