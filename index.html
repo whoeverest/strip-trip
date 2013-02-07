@@ -78,11 +78,6 @@ a, a:visited {
   };
 })();
 
-$.urlParam = function(name){
-    var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
-    return results[1] || 0;
-}
-
 var db = {
     data: [
         {
@@ -109,35 +104,37 @@ var db = {
 
 $(function() {
 
-    if (!db.get($.urlParam('id'))) {
+    var id = parseInt(location.search.substr(1));
+    var entry = db.get(id);
+    
+    if (!entry) {
         $('body').append("<h1>СРАЊЕ УРЛ!!!</h1>");
         throw 'говна во срање урл-то што го внесуваш ебате. Курац.';
     }
 
-    var entry = db.get($.urlParam('id'));
-
     var templateData = {};
     templateData.entry = entry;
 
-    var baseUrl = 'index.html'; 
-    var nextId = db.get(entry.id + 1)['id'];
-    if (nextId) {
-        var nextUrl = baseUrl + '?id=' + nextId;
-        templateData.nextUrl = nextUrl;
+    var baseUrl = '?';
+
+    var nextId = id + 1;
+    if (db.get(nextId)) {
+        templateData.nextUrl = baseUrl + nextId;
     }
-    var prevId = db.get(entry.id - 1)['id'];
-    if (prevId) {
-        var prevUrl = baseUrl + '?id=' + prevId;
-        templateData.prevUrl = prevUrl;
+    var prevId = id - 1;
+    if (db.get(prevId)) {
+        templateData.prevUrl = baseUrl + prevId;
         $('head').append('<link rel="prerender" href="' + templateData.prevUrl + '">')
     }
 
     $(document).keydown(function(event) {
         switch (event.keyCode) {
-            case 37: if (nextUrl) window.location = nextUrl; break;
-            case 39: if (prevUrl) window.location = prevUrl; break;
+            case 37: if (db.get(nextId)) window.location = templateData.nextUrl; break;
+            case 39: if (db.get(prevId)) window.location = templateData.prevUrl; break;
         }
     });
+
+    console.log(location.search.substr(1));
 
     $('head').append('<title>(С)трип: ' + entry.title + '</title>');
     
