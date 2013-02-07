@@ -44,35 +44,65 @@ $.urlParam = function(name){
     return results[1] || 0;
 }
 
-var db = [
-    {   
-        "id": "1",
-        "title": "Test 1",
-        "image": "img/img1.png"
-    },
-    {
-        "id": "2",
-        "title": "Test 2",
-        "image": "img/img2.png"
-    },
-    {
-        "id": "3",
-        "title": "Test 3",
-        "image": "img/img3.png"
-    },
-]
+var db = {
+    data: [
+        {
+            "id": "1",
+            "title": "Заљубени",
+            "image": "img/img1.png"
+        },
+        {
+            "id": "2",
+            "title": "Test 2",
+            "image": "img/img2.png"
+        },
+        {
+            "id": "3",
+            "title": "Test 3",
+            "image": "img/img3.png"
+        }
+    ],
+    get: function(ID) {
+        var target = this.data.filter(function(el) { return el.id == ID });
+        if (target.length > 0) {
+            return target[0];
+        } else {
+            return false;
+        }
+    }
+}
 
 $(function() {
-    target = db.filter(function(el) {
-        return el.id == $.urlParam('id');
-    })[0]
-    $('#main').html(tmpl('template', {'entry': target, 'next': 3}));
+    var entry = db.get($.urlParam('id'));
+
+    var templateData = {};
+    templateData.entry = entry;
+
+    var baseUrl = 'index.html'; 
+    var nextId = db.get(parseInt(entry.id) + 1)['id'];
+    if (nextId) {
+        templateData.nextUrl = baseUrl + '?id=' + nextId;
+    }
+    var prevId = db.get(parseInt(entry.id) - 1)['id'];
+    console.log(prevId);
+    if (prevId) {
+        templateData.prevUrl = baseUrl + '?id=' + prevId;
+    }
+    
+    var html_from_template = tmpl('template', {data: templateData});
+    $('#main').html(html_from_template);
 })
 </script>
 
 <script type="text/html" id="template">
-    <h1 id="title">Title: <%= entry['title'] %></h1>
-    <div id="image"><img src="<%= entry['image'] %>" /></div>
+    <h1 id="title"><%= data.entry['title'] %></h1>
+    <% if (data.prevUrl) { %>
+        <a href="<%= data.prevUrl %>">Претходен</a>
+    <% } %>
+    <% if (data.nextUrl) { %>
+        <a href="<%= data.nextUrl %>">Следен</a>
+    <% } %>
+    <div id="image"><img src="<%= data.entry['image'] %>" /></div>
 </script>
 </head>
 <body>
