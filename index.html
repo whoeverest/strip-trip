@@ -2,6 +2,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+<style>
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333
+}
+
+a, a:visited {
+    color: #333;
+    text-decoration: none;
+}
+
+#main {
+    width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#next, #prev {
+    font-size: 20px;
+}
+
+#next {
+    float: left;
+}
+
+#prev {
+    float: right;
+}
+
+#controls {
+    width: 100%;
+    padding-top: 10px;
+}
+</style>
+
 <script>
 // Simple JavaScript Templating
 // John Resig - http://ejohn.org/ - MIT Licensed
@@ -47,18 +83,18 @@ $.urlParam = function(name){
 var db = {
     data: [
         {
-            "id": "1",
+            "id": "3",
             "title": "Заљубени",
             "image": "img/img1.png"
         },
         {
             "id": "2",
-            "title": "Test 2",
+            "title": "Стари чанти",
             "image": "img/img2.png"
         },
         {
-            "id": "3",
-            "title": "Test 3",
+            "id": "1",
+            "title": "Културен натпревар за полен на розите",
             "image": "img/img3.png"
         }
     ],
@@ -96,14 +132,17 @@ $(function() {
 </script>
 
 <script type="text/html" id="template">
-    <h1 id="title"><%= data.entry['title'] %></h1>
-    <% if (data.prevUrl) { %>
-        <a href="<%= data.prevUrl %>">Претходен</a>
-    <% } %>
-    <% if (data.nextUrl) { %>
-        <a href="<%= data.nextUrl %>">Следен</a>
-    <% } %>
+    <h1>(С)трип</h1>
+    <h2 id="title"><%= data.entry['title'] %></h1>
     <div id="image"><img src="<%= data.entry['image'] %>" /></div>
+    <div id="controls">
+        <% if (data.nextUrl) { %>
+            <a id="next" href="<%= data.nextUrl %>">&lt;&lt; Помалку идеја</a>
+        <% } %>
+        <% if (data.prevUrl) { %>
+            <a id="prev" href="<%= data.prevUrl %>">Полошо нацртани &gt;&gt;</a>
+        <% } %>
+    </div>
 </script>
 </head>
 <body>
