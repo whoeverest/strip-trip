@@ -102,13 +102,8 @@ var db = {
         }
     ],
     get: function(ID) {
-        ID = parseInt(ID);
-        var target = this.data.filter(function(el) { return el.id == ID });
-        if (target.length > 0) {
-            return target[0];
-        } else {
-            return false;
-        }
+        var target = this.data.filter(function(el) { return el.id == parseInt(ID) });
+        return (target.length > 0) ? target[0] : false;
     }
 }
 
@@ -143,6 +138,8 @@ $(function() {
             case 39: if (prevUrl) window.location = prevUrl; break;
         }
     });
+
+    $('head').append('<title>(С)трип: ' + entry.title + '</title>');
     
     var html_from_template = tmpl('template', {data: templateData});
     $('#main').html(html_from_template);
@@ -152,7 +149,7 @@ $(function() {
 <script type="text/html" id="template">
     <h1>(С)трип</h1>
     <h2 id="title"><%= data.entry['title'] %></h2>
-    <div id="image"><img src="<%= data.entry['image'] %>" /></div>
+    <div id="image"><img src="<%= data.entry['image'] %>" title="Тоа на XKCD."/></div>
     <div id="controls">
         <% if (data.nextUrl) { %>
             <a id="next" href="<%= data.nextUrl %>">&lt;&lt; Помалку идеја</a>
