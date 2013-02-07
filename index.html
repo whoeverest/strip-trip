@@ -118,12 +118,11 @@ $(function() {
     var nextId = db.get(parseInt(entry.id) + 1)['id'];
     if (nextId) {
         templateData.nextUrl = baseUrl + '?id=' + nextId;
-        $('head').append('<link rel="prerender" href="' + templateData.nextUrl + '">')
     }
     var prevId = db.get(parseInt(entry.id) - 1)['id'];
-    console.log(prevId);
     if (prevId) {
         templateData.prevUrl = baseUrl + '?id=' + prevId;
+        $('head').append('<link rel="prerender" href="' + templateData.prevUrl + '">')
     }
     
     var html_from_template = tmpl('template', {data: templateData});
