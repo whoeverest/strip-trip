@@ -14,11 +14,11 @@ db.forEach(function(entry) {
 	var i = db.indexOf(entry);
 
 	if (i !== 0) {
-		entry.nextUrl = '/trip/' + (entry.id+1);
+		entry.nextUrl = path.join('..', '' + (entry.id+1));
 	}
 
 	if (i !== db.length-1) {
-		entry.prevUrl = '/trip/' + (entry.id-1);
+		entry.prevUrl = path.join('..', '' + (entry.id-1));
 	}
 
 	entry.css = css;
