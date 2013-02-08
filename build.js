@@ -2,9 +2,6 @@ var mustache = require('mustache');
 var path = require('path');
 var fs = require('fs');
 
-// exec = require( 'child_process' ).exec;
-// exec('rm -rf trip/*');
-
 var template = fs.readFileSync('template.html', 'utf-8');
 var css = fs.readFileSync('main.css', 'utf-8');
 var script = fs.readFileSync('main.js', 'utf-8');
