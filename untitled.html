@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    {{#nextUrl}}
+    <link rel="prerender" href="{{ nextUrl }}">
+    {{/nextUrl}}
+
+    <title>(С)трип: {{ title }}</title>
+
+    <style>
+    {{{ css }}}
+    </style>
+
+    <script type="text/javascript">
+    $(document).keydown(function(event) {
+        switch (event.keyCode) {
+            case 37: window.location = '{{{ prevUrl }}}'; break;
+            case 39: window.location = '{{{ nextUrl}}}'; break;
+        }
+    }
+    </script>
+
+</head>
+<body>
+    <div id="main">
+        <h1>(С)трип</h1>
+        <h2 id="title">{{ title }}</h2>
+        <div id="image"><img src="{{ image }}" title="Тоа на XKCD."></div>
+        <div id="controls">
+            {{#nextUrl}}
+            <a id="next" href="{{ nextUrl }}" title="Може и со стрелките на тастатурата.">&lt;&lt; Помалку идеја</a>
+            {{/nextUrl}}
+            {{#prevUrl}}
+            <a id="prev" href="{{ prevUrl }}" title="Може и со стрелките на тастатурата.">Полошо нацртани &gt;&gt;</a>
+            {{/prevUrl}}
+        </div>
+    </div>
+</body>
+</html>
