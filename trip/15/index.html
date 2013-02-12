@@ -1,15 +1,17 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <link rel="prerender" href="..&#x2F;16">
-
     <title>(С)трип: Drivin&#39;</title>
-
     <link rel="stylesheet" href="../../main.css">
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script type="text/javascript">
-    
+        $(document).keydown(function(event) {
+            switch (event.keyCode) {
+                case 37: window.location = '../14'; break;
+                case 39: window.location = '../16'; break;
+            }
+        }
     </script>
 
 </head>
@@ -17,10 +19,10 @@
     <div id="main">
         <h1>(С)трип</h1>
         <h2 id="title">Drivin&#39;</h2>
-        <div id="image"><img src="..&#x2F;..&#x2F;img&#x2F;15-vozi.jpg" title="Тоа на XKCD."></div>
+        <div id="image"><img src="../../img/15-vozi.jpg" title="Тоа на XKCD."></div>
         <div id="controls">
-            <a id="next" href="..&#x2F;16" title="Може и со стрелките на тастатурата.">&lt;&lt; Помалку идеја</a>
-            <a id="prev" href="..&#x2F;14" title="Може и со стрелките на тастатурата.">Полошо нацртани &gt;&gt;</a>
+            <a id="next" href="../16" title="Може и со стрелките на тастатурата.">&lt;&lt; Помалку идеја</a>
+            <a id="prev" href="../14" title="Може и со стрелките на тастатурата.">Полошо нацртани &gt;&gt;</a>
         </div>
     </div>
 </body>

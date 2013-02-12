@@ -1,15 +1,17 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <link rel="prerender" href="..&#x2F;2">
-
     <title>(С)трип: Шљу</title>
-
     <link rel="stylesheet" href="../../main.css">
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script type="text/javascript">
-    
+        $(document).keydown(function(event) {
+            switch (event.keyCode) {
+                case 37: window.location = ''; break;
+                case 39: window.location = '../2'; break;
+            }
+        }
     </script>
 
 </head>
@@ -17,9 +19,9 @@
     <div id="main">
         <h1>(С)трип</h1>
         <h2 id="title">Шљу</h2>
-        <div id="image"><img src="..&#x2F;..&#x2F;img&#x2F;1-shlju.jpg" title="Тоа на XKCD."></div>
+        <div id="image"><img src="../../img/1-shlju.jpg" title="Тоа на XKCD."></div>
         <div id="controls">
-            <a id="next" href="..&#x2F;2" title="Може и со стрелките на тастатурата.">&lt;&lt; Помалку идеја</a>
+            <a id="next" href="../2" title="Може и со стрелките на тастатурата.">&lt;&lt; Помалку идеја</a>
         </div>
     </div>
 </body>

@@ -1,15 +1,17 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <link rel="prerender" href="..&#x2F;8">
-
     <title>(С)трип: Artist&#39;s escape</title>
-
     <link rel="stylesheet" href="../../main.css">
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script type="text/javascript">
-    
+        $(document).keydown(function(event) {
+            switch (event.keyCode) {
+                case 37: window.location = '../6'; break;
+                case 39: window.location = '../8'; break;
+            }
+        }
     </script>
 
 </head>
@@ -17,10 +19,10 @@
     <div id="main">
         <h1>(С)трип</h1>
         <h2 id="title">Artist&#39;s escape</h2>
-        <div id="image"><img src="..&#x2F;..&#x2F;img&#x2F;7-artists-escape.jpg" title="Тоа на XKCD."></div>
+        <div id="image"><img src="../../img/7-artists-escape.jpg" title="Тоа на XKCD."></div>
         <div id="controls">
-            <a id="next" href="..&#x2F;8" title="Може и со стрелките на тастатурата.">&lt;&lt; Помалку идеја</a>
-            <a id="prev" href="..&#x2F;6" title="Може и со стрелките на тастатурата.">Полошо нацртани &gt;&gt;</a>
+            <a id="next" href="../8" title="Може и со стрелките на тастатурата.">&lt;&lt; Помалку идеја</a>
+            <a id="prev" href="../6" title="Може и со стрелките на тастатурата.">Полошо нацртани &gt;&gt;</a>
         </div>
     </div>
 </body>
